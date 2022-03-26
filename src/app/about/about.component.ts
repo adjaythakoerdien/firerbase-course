@@ -34,13 +34,53 @@ export class AboutComponent {
         }
     }
 
-    removeId(data: any) {
+    removeId(data: any): any {
         const newData: any = {...data};
         delete newData.id;
         return newData;
     }
 
 
+    onReadDoc(): void {
+        this.db.doc('/courses/66VHkthxeTxbDMRskfL8')
+            .valueChanges()
+            .subscribe(
+            course => {
+                console.log(course);
+            }
+        );
+    }
+
+    onReadCollection(): void {
+        this.db.collection(
+            '/courses/9eZNQ22CwrD99fPP9KEi/lessons',
+            ref => ref.where('seqNo', '<=', 5)
+                // .where('lessonsCount', '<=', 10)
+                .orderBy('seqNo')
+        ).get()
+            .subscribe(
+            snaps => {
+                snaps.forEach( snap => {
+                    console.log(snap.id);
+                    console.log(snap.data());
+                });
+            }
+        )
+    }
+
+    onReadCollectionGroup(): void {
+        this.db.collectionGroup('lessons',
+            ref => ref.where('seqNo', '==', 1))
+        .get()
+        .subscribe(
+            snaps => {
+                snaps.forEach( snap => {
+                    console.log(snap.id);
+                    console.log(snap.data());
+                });
+            }
+        );
+    }
 }
 
 
