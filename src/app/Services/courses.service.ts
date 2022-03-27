@@ -3,7 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {Course} from '../model/course';
 import {map} from 'rxjs/operators';
-import {convertSnaps} from "./db-utils";
+import {convertSnaps} from './db-utils';
 
 @Injectable({
     providedIn: 'root'
